@@ -13,7 +13,7 @@
 - Firewall — управление правилами firewalld, исключительно access port
 - Website — демонстрационная web-страница со статусом сервисов
 
-Инфраструктура разворачивается на виртуальных машинах Yandex Cloud, подготовленных Terraform. Конфигурация выполняется через Ansible роли. :contentReference[oaicite:0]{index=0}
+Инфраструктура разворачивается на виртуальных машинах Yandex Cloud, подготовленных Terraform. Конфигурация выполняется через Ansible роли.
 
 ---
 
@@ -96,7 +96,7 @@
 | lighthouse | Lighthouse UI |
 | firewall | Firewall management |
 
-Конфигурация инвентаря описана в `inventory/dev.yml`. :contentReference[oaicite:1]{index=1}
+Конфигурация инвентаря описана в `inventory/dev.yml`.
 
 ---
 
@@ -138,8 +138,6 @@ clickhouse_packages: # List устанавливаемых пакетов
   - clickhouse-common-static
 
 ```
-:contentReference[oaicite:2]{index=2}
-
 ---
 
 ### Vector
@@ -185,9 +183,6 @@ vector_template_mode: "0644" # Права файла крнфигурации
 vector_clickhouse_http_delay: 2 # Timeout при старте проверки
 vector_clickhouse_http_timeout: 30 # Timeout ожидания получения ответа
 ```
-
-:contentReference[oaicite:3]{index=3}
-
 ---
 
 ### Nginx
@@ -228,8 +223,6 @@ nginx_template_src: "templates/nginx.conf.j2" # Template файла конфиг
   - ClickHouse
 - Генерация HTML через Jinja2 шаблон
 
-:contentReference[oaicite:5]{index=5}
-
 Основные параметры:
 ```yaml
 # Default variable применяемые в group_vars and host_vars
@@ -258,9 +251,6 @@ lighthouse_git_repo: "https://github.com/VKCOM/lighthouse.git" # Адрес ре
 lighthouse_git_dest: "/usr/share/nginx/lighthouse" # Path root директория размещения на Nginx
 lighthouse_git_version: "master" # Имя ветки или версии
 ```
-
-:contentReference[oaicite:6]{index=6}
-
 ---
 
 ### Firewall
@@ -284,9 +274,6 @@ firewall_access_port:
 firewall_access_port:
   - 8123/tcp
 ```
-
-:contentReference[oaicite:7]{index=7}
-
 ---
 
 ## Variables
@@ -297,9 +284,6 @@ firewall_access_port:
 clickhouse_http_port: "8123"
 set_timezone: "Europe/Moscow"
 ```
-
-:contentReference[oaicite:8]{index=8}
-
 ---
 
 ### ClickHouse Connection
@@ -309,9 +293,6 @@ Vector автоматически получает адрес ClickHouse:
 ```yaml
 vector_clickhouse_http_host: "{{ hostvars['clickhouse-01'].ansible_host }}"
 ```
-
-:contentReference[oaicite:9]{index=9}
-
 ---
 
 ## Dependencies
@@ -330,8 +311,6 @@ ansible-galaxy install -r requirements.yml
 - lighthouse-role
 - website-role
 - firewall-role
-
-:contentReference[oaicite:10]{index=10}
 
 ---
 
@@ -361,9 +340,6 @@ ansible-playbook -i inventory/dev.yml site.yml
 5. Lighthouse
 6. Firewall
 ```
-
-:contentReference[oaicite:11]{index=11}
-
 ---
 
 ## Tags
@@ -448,11 +424,11 @@ firewall-cmd --list-ports
 
 ## Screenshots
 
-- Terraform apply
-- Ansible play recap
 - Website dashboard
+<img width="1226" height="468" alt="изображение" src="https://github.com/user-attachments/assets/7acc8a45-82e9-4075-ace8-a929f5d090b0" />
+
 - Lighthouse interface
-- ClickHouse query results
+<img width="1553" height="415" alt="изображение" src="https://github.com/user-attachments/assets/4e311695-e276-4a9f-a1f9-98d95c5a1931" />
 
 ---
 
