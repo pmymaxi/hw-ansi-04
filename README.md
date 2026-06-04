@@ -1,4 +1,4 @@
-# HW-ANSI-04
+# Домашнее задание к занятию 4 «Работа с roles»
 
 ## Описание
 
@@ -130,7 +130,8 @@ clickhouse_db_name: "nginx" # Имя базы данных
 clickhouse_table_name: "my_access_logs" # Имя таблицы в базе данных
 
 # Фиксированные переменные (vars)
-clickhouse_template_src: "templates/listen_host.xml.j2" # Template к основной конфигурации ClickHouse (добавляет возможность прослушивания на всех интерфейсах) 
+clickhouse_template_src: "templates/listen_host.xml.j2" # Template к основной конфигурации >
+# ClickHouse (добавляет возможность прослушивания на всех интерфейсах) 
 clickhouse_template_mode: "0644" # Права файла конфигурации на instance
 clickhouse_packages: # List устанавливаемых пакетов
   - clickhouse-client
@@ -196,9 +197,12 @@ vector_clickhouse_http_timeout: 30 # Timeout ожидания получения
 Основные параметры:
 ```yaml
 # Default variable применяемые в group_vars and host_vars
-nginx_user: "nginx" # Пользователь Nginx (применяется в конфигурации и в назначении владельца директории и файлов)
-nginx_groups: "nginx" # Группа пользователя Nginx (применяется в назначении владельца директории и файлов)
-nginx_create_root_dir: "" # Path create директории размещения статистического контента (определяется условием, если null то директория не создается)
+nginx_user: "nginx" # Пользователь Nginx (применяется в конфигурации и в назначении >
+# владельца директории и файлов)
+nginx_groups: "nginx" # Группа пользователя Nginx (применяется в назначении >
+# владельца директории и файлов)
+nginx_create_root_dir: "" # Path create директории размещения статистического >
+# контента (определяется условием, если null то директория не создается)
 nginx_conf_dest: "/etc/nginx/nginx.conf" # Path файла конфигурации Nginx 
 
 # Фиксированные переменные (vars)
