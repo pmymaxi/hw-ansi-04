@@ -1,0 +1,5 @@
+---
+nginx_template_mode: "0644"
+nginx_root_dir_mode: "0755"
+nginx_template_src: "templates/nginx.conf.j2"
+nginx_template_web_src: "templates/index.html.j2"

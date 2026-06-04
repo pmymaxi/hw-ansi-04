@@ -1,0 +1,3 @@
+---
+website_dir_mode: "0644"
+website_template_web_src: "templates/index.html.j2"

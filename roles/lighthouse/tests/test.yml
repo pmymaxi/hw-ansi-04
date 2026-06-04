@@ -1,0 +1,6 @@
+---
+- hosts: lighthouse
+  remote_user: dops
+  become: true
+  roles:
+    - lighthouse

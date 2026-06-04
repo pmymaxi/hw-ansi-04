@@ -1,0 +1,28 @@
+---
+- name: Install nginx
+  tags:
+    - installnginx
+  ansible.builtin.dnf:
+    name: nginx
+    state: present
+    disable_gpg_check: true
+- name: Create root directory
+  ansible.builtin.file:
+    path: "{{ nginx_create_root_dir }}"
+    state: directory
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_groups }}"
+    mode: "{{ nginx_root_dir_mode }}"
+  when:
+    - nginx_create_root_dir is defined
+    - nginx_create_root_dir | length > 0
+- name: Past templates nginx
+  tags:
+    - setconfnginx
+  ansible.builtin.template:
+    src: "{{ nginx_template_src }}"
+    dest: "{{ nginx_conf_dest }}"
+    mode: "{{ nginx_template_mode }}"
+  notify: Start nginx
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers

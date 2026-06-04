@@ -1,0 +1,31 @@
+---
+- name: Gather service facts
+  tags:
+    - always
+  ansible.builtin.service_facts:
+- name: Web statick
+  tags:
+    - website
+  block:
+    - name: Ping clickhouse
+      ansible.builtin.uri:
+        url: "{{ website_clickhouse_server }}"
+        method: GET
+        return_content: true
+      failed_when: false
+      register: website_result_ping
+    - name: Ping debug
+      ansible.builtin.debug:
+        var: website_result_ping
+    - name: Past templates website
+      ansible.builtin.template:
+        src: "{{ website_template_web_src }}"
+        dest: "{{ website_web_dest }}"
+        mode: "{{ website_dir_mode }}"
+      vars:
+        nginx_status: "{{ ansible_facts.services['nginx.service'].status }}"
+        nginx_state: "{{ ansible_facts.services['nginx.service'].state }}"
+        vector_status: "{{ ansible_facts.services['vector.service'].status }}"
+        vector_state: "{{ ansible_facts.services['vector.service'].state }}"
+        clickhouse_server: "{{ website_result_ping.url }}"
+        clickhouse_ping: "{{ website_result_ping.content }}"

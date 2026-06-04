@@ -1,0 +1,5 @@
+---
+firewall_access_port:
+  - 80/tcp
+
+nginx_root_dir: "{{ lighthouse_git_dest }}"

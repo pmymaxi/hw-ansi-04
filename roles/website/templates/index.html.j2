@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Infra Dashboard for home works ansible N 04</title>
+  <style>
+    body { font-family: Arial; background: #0f172a; color: #e2e8f0; }
+    .ok { color: #22c55e; }
+    .box { padding: 10px; border: 1px solid #334155; margin: 10px; }
+  </style>
+</head>
+<body>
+
+<h1>>> Infra Dashboard for home works ansible N 04 <<</h1>
+
+<div class="box">
+  <p>Server: {{ ansible_hostname }}</p>
+  <p>IP: {{ ansible_default_ipv4.address }}</p>
+</div>
+
+<div class="box">
+  <p>Nginx: <span class="ok">{{ nginx_state }} ({{ nginx_status }})</span></p>
+  <p>Vector: <span style="color:{{ '#22c55e' if vector_state == 'running' else 'red' }}">{{ vector_state }} ({{ vector_status }})</span></p>
+   <p>ClickHouse-Server: <span class="ok">{{ clickhouse_server }}</span></p>
+  <p>ClickHouse ping: <span style="color:{{ '#22c55e' if website_result_ping.status == 200 else 'red' }}">{{ clickhouse_ping if clickhouse_ping == 'Ok' else website_result_ping.msg }}</span></p>
+</div>
+<div class="box">
+  <p>This page is generated using the j2 template when the nginx role is executed. It is statistical and does not dynamically update the check statuses.</p>
+</div>
+</body>
+</html>

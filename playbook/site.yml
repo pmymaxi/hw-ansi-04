@@ -1,0 +1,57 @@
+---
+- name: Install ClickHouse
+  hosts: clickhouse
+  become: true
+  tags:
+    - clickhouse
+  pre_tasks:
+    - name: Set timezone
+      ansible.builtin.timezone:
+        name: "{{ set_timezone }}"
+  roles:
+    - clickhouse
+- name: Install Nginx
+  hosts: nginx
+  become: true
+  tags:
+    - nginx
+  pre_tasks:
+    - name: Set timezone
+      ansible.builtin.timezone:
+        name: "{{ set_timezone }}"
+  roles:
+    - nginx
+- name: Install Vector
+  hosts: vector
+  become: true
+  tags:
+    - vector
+  roles:
+    - vector
+- name: Install Website
+  hosts: website
+  become: true
+  tags:
+    - website
+  roles:
+    - website
+- name: Install Lighthouse
+  hosts: lighthouse
+  become: true
+  tags:
+    - lighthouse
+  pre_tasks:
+    - name: Install git
+      ansible.builtin.dnf:
+        name: git
+        state: present
+        disable_gpg_check: true
+  roles:
+    - lighthouse
+- name: Access port firewall
+  hosts: firewall
+  become: true
+  tags:
+    - firewall
+  roles:
+    - firewall
